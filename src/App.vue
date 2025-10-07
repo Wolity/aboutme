@@ -20,13 +20,25 @@
         <a href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">
           <img src="../src/assets/Bg_vue.png" class="vue" />
         </a>
-        <a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://en.wikipedia.org/wiki/JavaScript"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img src="../src/assets/javascript_logo.png" class="javascript" />
         </a>
-        <a href="https://en.wikipedia.org/wiki/TypeScript" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://en.wikipedia.org/wiki/TypeScript"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img src="../src/assets/typescript_logo.png" class="typescript" />
         </a>
-        <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://www.python.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img src="../src/assets/python_icon.jpeg" class="python" />
         </a>
       </div>
@@ -35,7 +47,7 @@
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 .main {
   min-height: 100vh;
@@ -45,13 +57,14 @@
   padding-top: 80px;
   gap: 40px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background: linear-gradient(to bottom, #6270a9, #56689a, #384267);
   color: #061b6f;
 }
 
-h1, h2 {
-  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+h1,
+h2 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
@@ -71,20 +84,19 @@ p {
   display: block;
   margin: 0 auto;
   border-radius: 50%;
- background: linear-gradient(to bottom, #6270a9, #56689a, #384267);
+  background: linear-gradient(to bottom, #6270a9, #56689a, #384267);
   padding: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
 
   &:hover {
     transform: scale(1.1);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   }
-
 
   &:hover {
     transform: scale(1.1);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -100,21 +112,35 @@ h2 {
   gap: 30px;
 }
 
-.vue, .javascript, .typescript, .python {
+.vue,
+.javascript,
+.typescript,
+.python {
   cursor: pointer;
   display: block;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.vue { width: 100px; }
-.javascript { width: 100px; }
-.typescript { width: 100px; }
-.python { width: 100px; }
+.vue {
+  width: 100px;
+}
+.javascript {
+  width: 100px;
+}
+.typescript {
+  width: 100px;
+}
+.python {
+  width: 100px;
+}
 
-.vue:hover, .javascript:hover, .typescript:hover, .python:hover {
+.vue:hover,
+.javascript:hover,
+.typescript:hover,
+.python:hover {
   transform: scale(1.1);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 </style>
