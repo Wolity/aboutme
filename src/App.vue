@@ -64,7 +64,7 @@
 
 h1,
 h2 {
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 5px rgba(21, 21, 21, 0.3);
 }
 
 h1 {
