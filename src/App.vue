@@ -58,7 +58,7 @@
   gap: 40px;
   text-align: center;
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(to bottom, #6270a9, #56689a, #384267);
+  background: linear-gradient(to bottom, #6270a9, #56689a, #414b71ff);
   color: #061b6f;
 }
 
@@ -84,7 +84,7 @@ p {
   display: block;
   margin: 0 auto;
   border-radius: 50%;
-  background: linear-gradient(to bottom, #6270a9, #56689a, #384267);
+  background: linear-gradient(to bottom, #6270a9, #56689a, #414b71ff);
   padding: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
