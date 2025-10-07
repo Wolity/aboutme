@@ -68,13 +68,13 @@ h2 {
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 60px;
   margin: 0;
 }
 
 p {
-  font-size: 40px;
-  font-weight: 600;
+  font-size: 50px;
+  font-weight: 599;
 }
 
 .telegram {
