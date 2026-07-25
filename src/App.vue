@@ -1,14 +1,25 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import introVideoSrc from "./assets/intro.mp4";
+import jsLogo from "../src/assets/javascript_logo.png";
+import tsLogo from "../src/assets/typescript_logo.png";
 
+const isLoaded = ref(false);
 const audio = ref(null);
-
 const isPlaying = ref(false);
 const current = ref(0);
 const duration = ref(0);
 
+const isJsTs = ref(false);
+const isTsTs = ref(false);
+
 onMounted(() => {
+  setTimeout(() => {
+    isLoaded.value = true;
+  }, 3000);
+
   const el = audio.value;
+  if (!el) return;
 
   el.addEventListener("loadedmetadata", () => {
     duration.value = el.duration;
@@ -21,226 +32,526 @@ onMounted(() => {
 
 function togglePlay() {
   const el = audio.value;
+  if (!el) return;
+
   if (!isPlaying.value) {
-    el.play();
+    el.play().then(() => {
+      isPlaying.value = true;
+    }).catch(err => console.log("Playback error:", err));
   } else {
     el.pause();
+    isPlaying.value = false;
   }
-  isPlaying.value = !isPlaying.value;
 }
 
 function onSeek() {
-  audio.value.currentTime = current.value;
+  const el = audio.value;
+  if (el) {
+    el.currentTime = current.value;
+  }
 }
 </script>
 
 <template>
-  <div class="main">
-    <nav>
-      <h1>Frontend developer</h1>
-      <p>you can find me in Telegram:</p>
+  <!-- Интро-видео -->
+  <div class="intro-overlay" :class="{ 'fade-out': isLoaded }">
+    <video class="intro-video" autoplay muted playsinline>
+      <source :src="introVideoSrc" type="video/mp4" />
+    </video>
+    <div class="video-noise"></div>
+  </div>
 
-      <a href="https://t.me/wolity" target="_blank" rel="noopener noreferrer">
-        <img src="../src/assets/telegramm.png" class="telegram" />
-      </a>
-    </nav>
+  <header class="top-navbar">
+    <div class="nav-container">
+      <router-link to="/" class="nav-link home-link">HOME</router-link>
 
-    <div class="technologies">
-      <h2>Main technologies:</h2>
-      <div class="icons">
-        <a href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">
-          <img src="../src/assets/Bg_vue.png" class="vue" />
-        </a>
-        <a
-          href="https://en.wikipedia.org/wiki/JavaScript"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="../src/assets/javascript_logo.png" class="javascript" />
-        </a>
-        <a
-          href="https://en.wikipedia.org/wiki/TypeScript"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="../src/assets/typescript_logo.png" class="typescript" />
-        </a>
-        <a
-          href="https://www.python.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="../src/assets/python_icon.jpeg" class="python" />
-        </a>
+      <div class="nordic-cross-icon swedish-flag">
+        <div class="cross-box"></div>
+        <div class="cross-box"></div>
+        <div class="cross-box"></div>
+        <div class="cross-box"></div>
+      </div>
+
+      <router-link to="/contact" class="nav-link contact-link">CONTACT</router-link>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="main">
+      <nav class="header anim-block delay-1">
+        <h1>Frontend developer</h1>
+      </nav>
+
+      <div class="carousel-container anim-block delay-2">
+        <div class="icons-group">
+          <a href="https://vuejs.org/" target="_blank" class="icon-wrap vue-wrap">
+            <img src="../src/assets/Bg_vue.png" class="tech-icon" alt="Vue" />
+          </a>
+
+          <div class="icon-wrap script-toggle-wrap" @click="isJsTs = !isJsTs">
+            <img :src="isJsTs ? tsLogo : jsLogo" class="tech-icon toggle-icon" alt="JS/TS" />
+          </div>
+
+          <div class="icon-wrap script-toggle-wrap" @click="isTsTs = !isTsTs">
+            <img :src="isTsTs ? jsLogo : tsLogo" class="tech-icon toggle-icon" alt="TS/JS" />
+          </div>
+        </div>
+      </div>
+
+      <div class="projects-section anim-block delay-3">
+        <div class="projects-content">
+          <h2>My Projects</h2>
+          <div class="project-buttons">
+            <a href="https://www.youtube.com/watch?v=bLGHyr4U11c" target="_blank" class="glass-btn neon-glow">
+              <span>Merchandise</span>
+              <span class="arrow">↗</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=bLGHyr4U11c" target="_blank" class="glass-btn neon-glow">
+              <span>Healthcare</span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Музыкальный плеер -->
+      <div class="music-player anim-block delay-4">
+        <img src="../src/assets/album.jpeg" class="cover" alt="Album Cover" />
+
+        <div class="track-info">
+          <div class="title">
+            OTHERSIDE instrumental
+          </div>
+          <input
+            type="range"
+            min="0"
+            :max="duration"
+            v-model="current"
+            @input="onSeek"
+          />
+        </div>
+
+        <button class="play-btn" @click="togglePlay">
+          {{ isPlaying ? "⏸" : "▶" }}
+        </button>
+        
+        <audio ref="audio" src="../src/assets/OTHERSIDE_Beat.mp3" preload="metadata"></audio>
       </div>
     </div>
 
-    <!-- 🎶 -->
-    <div class="music-player">
-      <img src="../src/assets/album.jpeg" class="cover" />
-
-      <div class="track-info">
-        <div class="title">My Track</div>
-
-        <input
-          type="range"
-          min="0"
-          :max="duration"
-          v-model="current"
-          @input="onSeek"
-        />
-      </div>
-
-      <button class="play-btn" @click="togglePlay">
-        {{ isPlaying ? "⏸ Pause" : "▶ Play" }}
-      </button>
-
-      <audio
-        ref="audio"
-        src="../src/assets/soundcloudaud.com_PARANOIA INTRO.mp3"
-      ></audio>
-    </div>
+    <footer class="footer-stretched anim-block delay-4">
+      <router-link to="/" class="footer-link">
+        © 2026 ALEXANDER ASTAPOV · ALL RIGHTS RESERVED
+      </router-link>
+    </footer>
   </div>
 </template>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
-.main {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 80px;
-  gap: 40px;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-  background: linear-gradient(
-    to bottom,
-    rgb(11, 28, 93),
-    #a4c4ff,
-    rgb(11, 28, 93)
-  );
+  background: radial-gradient(circle at top, #1e293b, #0f172a, #020617);
+  overflow-x: hidden;
+  animation: fogReveal 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-h1,
-h2 {
-  text-shadow: 2px 2px 5px rgba(21, 21, 21, 0.3);
-}
-
-h1 {
-  color: #0f2255;
-  font-size: 50px;
-  margin: 0;
-}
-
-p {
-  color: #637ac0;
-  font-size: 40px;
-  font-weight: 600;
-}
-
-.telegram {
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-  display: block;
-  margin: 0 auto;
-  border-radius: 50%;
-  padding: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s, box-shadow 0.3s;
-
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  }
-}
-
-h2 {
-  color: #0f2255;
-  font-size: 40px;
-  margin: 0 0 20px 0;
-}
-
-.icons {
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #000000;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+  z-index: 100;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  gap: 40px;
 }
 
-.vue,
-.javascript,
-.typescript,
-.python {
-  cursor: pointer;
-  display: block;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s, box-shadow 0.3s;
+.nav-container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
 
-  width: 100px;
+.nav-link {
+  font-family: 'Nova Square', sans-serif;
+  font-size: 20px;
+  color: #38bdf8;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+}
+
+.home-link {
+  text-decoration: none;
 
   &:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    text-decoration: underline;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 25px rgba(56, 189, 248, 0.5);
   }
 }
 
-/* 🎵 Стили плеера */
-.music-player {
-  border: 3px solid #a4c4ff,;
-  width: 320px;
-  padding: 20px;
-  border-radius: 20px;
-  background: linear-gradient(
-    to bottom,
-    rgb(11, 28, 93),
-    rgba(20, 41, 126, 0.365)
-  );
-  backdrop-filter: blur(8px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+.contact-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 25px rgba(56, 189, 248, 0.5);
+  }
+}
+
+.nordic-cross-icon.swedish-flag {
+  display: grid;
+  grid-template-columns: 24px 44px;
+  grid-template-rows: 22px 18px;
+  gap: 8px;
+  padding: 0;
+}
+
+.cross-box {
+  background: #2563eb;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  overflow: hidden;
+  background: #000;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+
+  &.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
+  pointer-events: none;
+}
+
+@keyframes fogReveal {
+  0% {
+    filter: blur(25px) brightness(0.2);
+    transform: scale(1.05);
+  }
+  100% {
+    filter: blur(0) brightness(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4), inset 0 0 10px rgba(56, 189, 248, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), inset 0 0 15px rgba(56, 189, 248, 0.4);
+  }
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120px 20px 40px 20px;
+  gap: 50px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #f8fafc;
+}
+
+.anim-block {
+  opacity: 0;
+  animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.delay-1 { animation-delay: 2.8s; }
+.delay-2 { animation-delay: 3.0s; }
+.delay-3 { animation-delay: 3.2s; }
+.delay-4 { animation-delay: 3.4s; }
+
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
 }
 
-.cover {
+h1 {
+  font-size: 42px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.carousel-container {
   width: 100%;
-  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.icons-group {
+  display: flex;
+  gap: 25px;
+  padding: 10px 5px;
+}
+
+.tech-icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 18px;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.vue-wrap {
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover .tech-icon {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 0 10px rgba(56, 189, 248, 0.5);
+  }
+}
+
+.script-toggle-wrap {
+  cursor: pointer;
+  display: inline-block;
+
+  .toggle-icon {
+    transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  &:hover .toggle-icon {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 0 10px rgba(56, 189, 248, 0.5);
+  }
+}
+
+.projects-section {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #090d16 0%, #111e38 50%, #050b14 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.projects-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  width: 100%;
+}
+
+.projects-content h2 {
+  font-family: 'Nova Square', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: #38bdf8;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.8), 0 0 25px rgba(56, 189, 248, 0.4);
+}
+
+.project-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.glass-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid #38bdf8;
+  border-radius: 16px;
+  text-decoration: none;
+  font-family: 'Nova Square', sans-serif;
+  color: #f1f5f9;
+  font-size: 16px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  animation: neonPulse 3s infinite ease-in-out;
+
+  .arrow {
+    font-size: 20px;
+    color: #38bdf8;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    background: rgba(56, 189, 248, 0.25);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.9);
+    
+    .arrow {
+      transform: translate(3px, -3px);
+    }
+  }
+}
+
+.music-player {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.cover {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .track-info {
-  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   text-align: left;
+}
 
-  .title {
-    color: #0f2255;
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  input[type="range"] {
-    width: 100%;
-    cursor: pointer;
-  }
+.track-info input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+  accent-color: #38bdf8;
 }
 
 .play-btn {
-  background: #0f2255;
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  font-size: 18px;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 50%;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
+    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
-    background: #1b3b8c;
+  }
+}
+
+.footer-stretched {
+  width: 100%;
+  background: #000000;
+  border-top: none;
+  border-bottom: none;
+  text-align: center;
+  margin-top: auto;
+  padding: 20px 0;
+}
+
+.footer-link {
+  font-family: 'Nova Square', sans-serif;
+  font-size: 18px;
+  color: #38bdf8;
+  letter-spacing: 4px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: none;
+  transition: all 0.3s ease;
+
+text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 25px rgba(56, 189, 248, 0.5);
   }
 }
 </style>
