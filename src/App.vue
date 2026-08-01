@@ -141,7 +141,7 @@ function onSeek() {
 
     <footer class="footer-stretched anim-block delay-4">
       <router-link to="/" class="footer-link">
-        © 2026 ALEXANDER ASTAPOV · ALL RIGHTS RESERVED
+        © 2026 ALEXANDER · ALL RIGHTS RESERVED
       </router-link>
     </footer>
   </div>
