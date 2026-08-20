@@ -1,4 +1,4 @@
-<script setup>
+We now should pull up the original style the chat spoiling<script setup>
 import { ref, onMounted } from "vue";
 import introVideoSrc from "./assets/intro.mp4";
 import jsLogo from "../src/assets/javascript_logo.png";
@@ -35,9 +35,11 @@ function togglePlay() {
   if (!el) return;
 
   if (!isPlaying.value) {
-    el.play().then(() => {
-      isPlaying.value = true;
-    }).catch(err => console.log("Playback error:", err));
+    el.play()
+      .then(() => {
+        isPlaying.value = true;
+      })
+      .catch((err) => console.log("Playback error:", err));
   } else {
     el.pause();
     isPlaying.value = false;
@@ -53,26 +55,32 @@ function onSeek() {
 </script>
 
 <template>
-  <!-- Интро-видео -->
   <div class="intro-overlay" :class="{ 'fade-out': isLoaded }">
     <video class="intro-video" autoplay muted playsinline>
       <source :src="introVideoSrc" type="video/mp4" />
     </video>
+
     <div class="video-noise"></div>
   </div>
 
   <header class="top-navbar">
     <div class="nav-container">
-      <router-link to="/" class="nav-link home-link">HOME</router-link>
+      <a href="/" class="nav-link home-link">
+        HOME
+      </a>
 
-      <div class="nordic-cross-icon swedish-flag">
-        <div class="cross-box"></div>
-        <div class="cross-box"></div>
-        <div class="cross-box"></div>
-        <div class="cross-box"></div>
-      </div>
+      <a href="/" class="logo-link">
+        <div class="nordic-cross-icon swedish-flag">
+          <div class="cross-box"></div>
+          <div class="cross-box"></div>
+          <div class="cross-box"></div>
+          <div class="cross-box"></div>
+        </div>
+      </a>
 
-      <router-link to="/contact" class="nav-link contact-link">CONTACT</router-link>
+      <a href="/contact" class="nav-link contact-link">
+        CONTACT
+      </a>
     </div>
   </header>
 
@@ -84,16 +92,38 @@ function onSeek() {
 
       <div class="carousel-container anim-block delay-2">
         <div class="icons-group">
-          <a href="https://vuejs.org/" target="_blank" class="icon-wrap vue-wrap">
-            <img src="../src/assets/Bg_vue.png" class="tech-icon" alt="Vue" />
+          <a
+            href="https://vuejs.org/"
+            target="_blank"
+            class="icon-wrap vue-wrap"
+          >
+            <img
+              src="../src/assets/Bg_vue.png"
+              class="tech-icon"
+              alt="Vue"
+            />
           </a>
 
-          <div class="icon-wrap script-toggle-wrap" @click="isJsTs = !isJsTs">
-            <img :src="isJsTs ? tsLogo : jsLogo" class="tech-icon toggle-icon" alt="JS/TS" />
+          <div
+            class="icon-wrap script-toggle-wrap"
+            @click="isJsTs = !isJsTs"
+          >
+            <img
+              :src="isJsTs ? tsLogo : jsLogo"
+              class="tech-icon toggle-icon"
+              alt="JS/TS"
+            />
           </div>
 
-          <div class="icon-wrap script-toggle-wrap" @click="isTsTs = !isTsTs">
-            <img :src="isTsTs ? jsLogo : tsLogo" class="tech-icon toggle-icon" alt="TS/JS" />
+          <div
+            class="icon-wrap script-toggle-wrap"
+            @click="isTsTs = !isTsTs"
+          >
+            <img
+              :src="isTsTs ? jsLogo : tsLogo"
+              class="tech-icon toggle-icon"
+              alt="TS/JS"
+            />
           </div>
         </div>
       </div>
@@ -101,27 +131,48 @@ function onSeek() {
       <div class="projects-section anim-block delay-3">
         <div class="projects-content">
           <h2>My Projects</h2>
+
           <div class="project-buttons">
-            <a href="https://www.youtube.com/watch?v=bLGHyr4U11c" target="_blank" class="glass-btn neon-glow">
+            <a
+              href=""
+              target="_blank"
+              class="glass-btn neon-glow"
+            >
               <span>Merchandise</span>
               <span class="arrow">↗</span>
             </a>
-            <a href="https://www.youtube.com/watch?v=bLGHyr4U11c" target="_blank" class="glass-btn neon-glow">
+
+            <a
+              href=""
+              target="_blank"
+              class="glass-btn neon-glow"
+            >
               <span>Healthcare</span>
+              <span class="arrow">↗</span>
+            </a>
+
+            <a
+              href="https://github.com/Wolity/Phasmophobia-Clicker"
+              target="_blank"
+              class="glass-btn neon-glow"
+            >
+              <span>Phasmaphobia tool</span>
               <span class="arrow">↗</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Музыкальный плеер -->
       <div class="music-player anim-block delay-4">
-        <img src="../src/assets/album.jpeg" class="cover" alt="Album Cover" />
+        <img
+          src="../src/assets/album.jpeg"
+          class="cover"
+          alt="Album Cover"
+        />
 
         <div class="track-info">
-          <div class="title">
-            OTHERSIDE instrumental
-          </div>
+          <div class="title">OTHERSIDE instrumental</div>
+
           <input
             type="range"
             min="0"
@@ -134,22 +185,36 @@ function onSeek() {
         <button class="play-btn" @click="togglePlay">
           {{ isPlaying ? "⏸" : "▶" }}
         </button>
-        
-        <audio ref="audio" src="../src/assets/OTHERSIDE_Beat.mp3" preload="metadata"></audio>
+
+        <audio
+          ref="audio"
+          src="../src/assets/OTHERSIDE_Beat.mp3"
+          preload="metadata"
+        ></audio>
       </div>
     </div>
 
     <footer class="footer-stretched anim-block delay-4">
+<<<<<<< HEAD
       <router-link to="/" class="footer-link">
         © 2026 ALEXANDER · ALL RIGHTS RESERVED
       </router-link>
+=======
+      <a href="/" class="footer-link">
+        © 2026 ALEXANDER ASTAPOV · ALL RIGHTS RESERVED
+      </a>
+>>>>>>> 17e3c90 (navigation_update)
     </footer>
   </div>
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nova+Square&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
 * {
   box-sizing: border-box;
@@ -190,7 +255,8 @@ function onSeek() {
 }
 
 .nav-link {
-  font-family: 'Nova Square', sans-serif;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
   font-size: 20px;
   color: #38bdf8;
   letter-spacing: 2px;
@@ -203,7 +269,9 @@ function onSeek() {
 
   &:hover {
     text-decoration: underline;
-    text-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 25px rgba(56, 189, 248, 0.5);
+    text-shadow:
+      0 0 12px rgba(56, 189, 248, 0.9),
+      0 0 25px rgba(56, 189, 248, 0.5);
   }
 }
 
@@ -212,8 +280,17 @@ function onSeek() {
 
   &:hover {
     text-decoration: underline;
-    text-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 25px rgba(56, 189, 248, 0.5);
+    text-shadow:
+      0 0 12px rgba(56, 189, 248, 0.9),
+      0 0 25px rgba(56, 189, 248, 0.5);
   }
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .nordic-cross-icon.swedish-flag {
@@ -239,7 +316,9 @@ function onSeek() {
   z-index: 999;
   overflow: hidden;
   background: #000;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
 
   &.fade-out {
     opacity: 0;
@@ -260,7 +339,11 @@ function onSeek() {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
+  background: radial-gradient(
+    circle,
+    transparent 40%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
   pointer-events: none;
 }
 
@@ -269,6 +352,7 @@ function onSeek() {
     filter: blur(25px) brightness(0.2);
     transform: scale(1.05);
   }
+
   100% {
     filter: blur(0) brightness(1);
     transform: scale(1);
@@ -280,10 +364,12 @@ function onSeek() {
     opacity: 0;
     transform: translateY(60px) scale(0.9);
   }
+
   60% {
     opacity: 1;
     transform: translateY(-10px) scale(1.02);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -291,11 +377,17 @@ function onSeek() {
 }
 
 @keyframes neonPulse {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4), inset 0 0 10px rgba(56, 189, 248, 0.2);
+  0%,
+  100% {
+    box-shadow:
+      0 0 15px rgba(56, 189, 248, 0.4),
+      inset 0 0 10px rgba(56, 189, 248, 0.2);
   }
+
   50% {
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), inset 0 0 15px rgba(56, 189, 248, 0.4);
+    box-shadow:
+      0 0 25px rgba(56, 189, 248, 0.8),
+      inset 0 0 15px rgba(56, 189, 248, 0.4);
   }
 }
 
@@ -307,7 +399,7 @@ function onSeek() {
   padding: 120px 20px 40px 20px;
   gap: 50px;
   text-align: center;
-  font-family: "Poppins", sans-serif;
+  font-family: "Oxanium", sans-serif;
   color: #f8fafc;
 }
 
@@ -316,10 +408,21 @@ function onSeek() {
   animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-.delay-1 { animation-delay: 2.8s; }
-.delay-2 { animation-delay: 3.0s; }
-.delay-3 { animation-delay: 3.2s; }
-.delay-4 { animation-delay: 3.4s; }
+.delay-1 {
+  animation-delay: 2.8s;
+}
+
+.delay-2 {
+  animation-delay: 3s;
+}
+
+.delay-3 {
+  animation-delay: 3.2s;
+}
+
+.delay-4 {
+  animation-delay: 3.4s;
+}
 
 .header {
   display: flex;
@@ -329,9 +432,10 @@ function onSeek() {
 }
 
 h1 {
+  font-family: "Electrolize", sans-serif;
   font-size: 42px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
+  font-weight: 400;
+  letter-spacing: 0;
   color: #ffffff;
 }
 
@@ -363,7 +467,9 @@ h1 {
 
   &:hover .tech-icon {
     transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 0 10px rgba(56, 189, 248, 0.5);
+    box-shadow:
+      0 0 25px rgba(56, 189, 248, 0.8),
+      0 0 10px rgba(56, 189, 248, 0.5);
   }
 }
 
@@ -372,12 +478,17 @@ h1 {
   display: inline-block;
 
   .toggle-icon {
-    transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   &:hover .toggle-icon {
     transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 0 10px rgba(56, 189, 248, 0.5);
+    box-shadow:
+      0 0 25px rgba(56, 189, 248, 0.8),
+      0 0 10px rgba(56, 189, 248, 0.5);
   }
 }
 
@@ -391,9 +502,16 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #090d16 0%, #111e38 50%, #050b14 100%);
+  background: linear-gradient(
+    135deg,
+    #090d16 0%,
+    #111e38 50%,
+    #050b14 100%
+  );
   border: 1px solid rgba(56, 189, 248, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(56, 189, 248, 0.1);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(56, 189, 248, 0.1);
 }
 
 .projects-content {
@@ -408,13 +526,16 @@ h1 {
 }
 
 .projects-content h2 {
-  font-family: 'Nova Square', sans-serif;
+  font-family: "Electrolize", sans-serif;
+  font-style: normal;
   font-size: 28px;
   font-weight: 400;
   color: #38bdf8;
   letter-spacing: 2px;
   text-transform: uppercase;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.8), 0 0 25px rgba(56, 189, 248, 0.4);
+  text-shadow:
+    0 0 12px rgba(56, 189, 248, 0.8),
+    0 0 25px rgba(56, 189, 248, 0.4);
 }
 
 .project-buttons {
@@ -436,9 +557,10 @@ h1 {
   border: 1.5px solid #38bdf8;
   border-radius: 16px;
   text-decoration: none;
-  font-family: 'Nova Square', sans-serif;
+  font-family: "Oxanium", sans-serif;
   color: #f1f5f9;
   font-size: 16px;
+  font-weight: 600;
   letter-spacing: 1px;
   transition: all 0.3s ease;
   animation: neonPulse 3s infinite ease-in-out;
@@ -453,7 +575,7 @@ h1 {
     background: rgba(56, 189, 248, 0.25);
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 0 30px rgba(56, 189, 248, 0.9);
-    
+
     .arrow {
       transform: translate(3px, -3px);
     }
@@ -493,9 +615,12 @@ h1 {
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #f1f5f9;
+  font-family: "Electrolize", sans-serif;
+  font-style: normal;
+  font-size: 24px;
+  font-weight: 400;
+  color: white;
+  letter-spacing: 1px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -511,20 +636,20 @@ h1 {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 50px;
-  height: 50px;
+  width: 58px;
+  height: 58px;
   font-size: 20px;
-  border-radius: 50%;
+  border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-  }
+.play-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
 }
 
 .footer-stretched {
@@ -538,7 +663,8 @@ h1 {
 }
 
 .footer-link {
-  font-family: 'Nova Square', sans-serif;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
   font-size: 18px;
   color: #38bdf8;
   letter-spacing: 4px;
@@ -547,11 +673,11 @@ h1 {
   text-shadow: none;
   transition: all 0.3s ease;
 
-text-decoration: none;
-
   &:hover {
     text-decoration: underline;
-    text-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 25px rgba(56, 189, 248, 0.5);
+    text-shadow:
+      0 0 12px rgba(56, 189, 248, 0.9),
+      0 0 25px rgba(56, 189, 248, 0.5);
   }
 }
 </style>
