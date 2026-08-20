@@ -1,4 +1,4 @@
-We now should pull up the original style the chat spoiling<script setup>
+<script setup>
 import { ref, onMounted } from "vue";
 import introVideoSrc from "./assets/intro.mp4";
 import jsLogo from "../src/assets/javascript_logo.png";
@@ -195,15 +195,9 @@ function onSeek() {
     </div>
 
     <footer class="footer-stretched anim-block delay-4">
-<<<<<<< HEAD
-      <router-link to="/" class="footer-link">
-        © 2026 ALEXANDER · ALL RIGHTS RESERVED
-      </router-link>
-=======
       <a href="/" class="footer-link">
         © 2026 ALEXANDER ASTAPOV · ALL RIGHTS RESERVED
       </a>
->>>>>>> 17e3c90 (navigation_update)
     </footer>
   </div>
 </template>
